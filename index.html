@@ -1,0 +1,1401 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ahmed Ragab Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@500;600;700&display=swap">
+<style>
+/* =====================================================================
+   style.css : شكل الموقع وحركته
+   الترتيب:
+   1) الألوان  2) الخطوط  3) أساسيات  4) الهيدر واللوجو  5) الواجهة
+   6) الأقسام  7) الأنيميشن العام  8) الفوتر وتقليل الحركة
+
+   لتغيير هوية الموقع كله لعميل جديد: غيّر --brand و --brand-soft فقط (القسم 1).
+   باقي الألوان تُشتق منهما تلقائيًا في الثيمين الفاتح والداكن.
+   ===================================================================== */
+
+/* ---------- 1) الألوان ---------- */
+:root {
+  /* ★ لون العلامة. هذا أهم سطر في الملف.
+     #512BD4 هو البنفسجي الرسمي لـ .NET.
+     أمثلة: أزرق #0B63CE ، أخضر #0F7B5F ، أحمر #C0262D ، برتقالي #D9540B */
+  --brand: #512BD4;
+  /* نسخة أفتح من نفس اللون، تُستخدم في الثيم الداكن حتى يظل مقروءًا */
+  --brand-soft: #9D80FF;
+
+  /* الثيم الفاتح (مشتق من لون العلامة) */
+  --paper: color-mix(in srgb, var(--brand) 6%, #fff);      /* خلفية الصفحة */
+  --paper-2: color-mix(in srgb, var(--brand) 11%, #fff);   /* خلفية الأقسام البديلة */
+  --card: color-mix(in srgb, var(--brand) 2%, #fff);       /* بطاقات المشاريع */
+  --ink: color-mix(in srgb, var(--brand) 18%, #0B0A14);    /* النص الأساسي */
+  --ink-2: color-mix(in srgb, var(--ink) 72%, var(--paper)); /* النص الثانوي */
+  --line: color-mix(in srgb, var(--brand) 22%, #fff);      /* الخطوط الفاصلة */
+  --accent: var(--brand);                                  /* الأزرار والروابط */
+  --accent-fg: #fff;                                       /* الكتابة فوق اللون المميز */
+  --ok: #12A150;                                           /* نقطة "متاح للعمل" */
+  --trace: color-mix(in srgb, var(--brand) 24%, var(--paper)); /* خطوط الدائرة في الواجهة */
+  --pulse: var(--brand);                                   /* النبضة المتحركة */
+  --glow: color-mix(in srgb, var(--brand) 15%, transparent);   /* توهج خلف الواجهة */
+  --chip: color-mix(in srgb, var(--brand) 30%, #07061A);   /* جسم الشريحة */
+  --chip-ink: #EAE6FF;
+  --pin: #BDBBCF;                                          /* أرجل الشريحة */
+  --pin-ink: #17132E;
+  --hl: color-mix(in srgb, var(--brand) 45%, #fff);        /* لون بارز فوق الخلفيات الداكنة */
+  --on-hl: #140C3D;
+  --band-bg: color-mix(in srgb, var(--brand) 40%, #0A0620); /* قسم الخدمات */
+  --band-fg: #F3F0FF;
+  --band-mute: color-mix(in srgb, var(--band-fg) 72%, var(--band-bg));
+  --band-line: color-mix(in srgb, var(--band-fg) 18%, var(--band-bg));
+  --shadow: 0 1.2rem 2.4rem -1.4rem color-mix(in srgb, var(--brand) 55%, transparent);
+  color-scheme: light;
+
+  /* منحنى الحركة المستخدم في كل الأنيميشن */
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* الثيم الداكن: نفس الأسماء بقيم أخرى */
+:root[data-theme="dark"] {
+  --paper: color-mix(in srgb, var(--brand) 14%, #05040D);
+  --paper-2: color-mix(in srgb, var(--brand) 9%, #030209);
+  --card: color-mix(in srgb, var(--brand) 22%, #05040D);
+  --ink: #EEEBFF;
+  --ink-2: color-mix(in srgb, var(--ink) 72%, var(--paper));
+  --line: color-mix(in srgb, var(--brand) 40%, #05040D);
+  --accent: var(--brand-soft);
+  --accent-fg: #0B0620;
+  --ok: #3DDC84;
+  --trace: color-mix(in srgb, var(--brand) 38%, var(--paper));
+  --pulse: var(--brand-soft);
+  --glow: color-mix(in srgb, var(--brand-soft) 18%, transparent);
+  --chip: #07051A;
+  --chip-ink: #E4DFFF;
+  --pin: #8F8CA8;
+  --hl: color-mix(in srgb, var(--brand-soft) 70%, #fff);
+  --band-bg: color-mix(in srgb, var(--brand) 30%, #07051A);
+  --shadow: 0 1.2rem 2.4rem -1.4rem #000;
+  color-scheme: dark;
+}
+
+/* ---------- 2) الخطوط ---------- */
+:root {
+  --f-display-latin: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --f-display: var(--f-display-latin);
+  --f-body: "IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, "Segoe UI", Tahoma, sans-serif;
+  --f-mono: "IBM Plex Mono", "IBM Plex Sans Arabic", ui-monospace, Menlo, Consolas, monospace;
+  /* تباعد الحروف وتحويلها لكبيرة (يُلغى في العربية لأنه يكسر اتصال الحروف) */
+  --ls: .08em;
+  --tt: uppercase;
+}
+:root[lang="ar"] {
+  --f-display: "Reem Kufi", "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --f-body: "IBM Plex Sans Arabic", "IBM Plex Sans", "Segoe UI", Tahoma, sans-serif;
+  --f-mono: "IBM Plex Sans Arabic", "IBM Plex Mono", "Segoe UI", Tahoma, sans-serif;
+  --ls: 0;
+  --tt: none;
+}
+
+/* ---------- 3) أساسيات ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+:root[lang="ar"] body { line-height: 1.85; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* الحاوية: أقصى عرض للمحتوى وهوامش الجوانب */
+.wrap {
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* شريط تقدّم القراءة أعلى الصفحة */
+.progress { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 40; height: 3px; background: linear-gradient(90deg, var(--brand), var(--hl)); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+[dir="rtl"] .progress { transform-origin: right; }
+
+/* ---------- 4) الهيدر واللوجو ---------- */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);   /* على الجوال ذي الحواف: يبقى الهيدر تحت شريط النظام */
+  z-index: 30;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow .3s var(--ease);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .site-header { background: color-mix(in srgb, var(--paper) 84%, transparent); backdrop-filter: blur(12px) saturate(1.3); }
+}
+.site-header.scrolled { box-shadow: 0 .8rem 1.6rem -1.2rem color-mix(in srgb, var(--ink) 45%, transparent); }
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem 1rem; padding-block: .5rem; }
+
+/* اللوجو: شريحة تُرسم بالخط، ونبضة تدور حولها */
+.mark { display: inline-flex; align-items: center; gap: .65rem; min-width: 0; color: var(--ink); text-decoration: none; font: 500 .9rem var(--f-mono); }
+.logo { position: relative; display: grid; place-items: center; flex: none; width: 2.7rem; height: 2.7rem; transition: transform .4s var(--ease); }
+.logo svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.logo b { position: relative; font: 600 .78rem var(--f-mono); letter-spacing: 0; color: var(--ink); }
+.lg-pins { stroke: var(--ink); stroke-width: 2; stroke-dasharray: 7; stroke-dashoffset: 0; animation: lg-pin .5s var(--ease) .95s both; transition: stroke .3s; }
+.lg-body { stroke: var(--ink); stroke-width: 2.2; stroke-dasharray: 100; stroke-dashoffset: 0; animation: lg-draw 1.1s var(--ease) .15s both; transition: stroke .3s; }
+.lg-run { stroke: var(--accent); stroke-width: 2.6; stroke-dasharray: 9 91; stroke-dashoffset: 0; animation: lg-fade .4s 1.5s both, lg-run 3.4s linear 1.7s infinite; }
+.mark:hover .logo { transform: scale(1.08) rotate(-3deg); }
+.mark:hover .lg-body, .mark:hover .lg-pins { stroke: var(--accent); }
+.mark:active .logo { transform: scale(.94); }
+@keyframes lg-draw { from { stroke-dashoffset: 100; } }
+@keyframes lg-pin { from { stroke-dashoffset: 7; } }
+@keyframes lg-fade { from { opacity: 0; } }
+@keyframes lg-run { to { stroke-dashoffset: -100; } }
+
+/* القائمة: خط يتحرك بين العناصر */
+.nav { position: relative; display: flex; gap: 1.5rem; }
+.nav a { position: relative; padding-block: .4rem; color: var(--ink-2); text-decoration: none; font-size: .92rem; white-space: nowrap; transition: color .25s; }
+.nav a:hover, .nav a[aria-current="true"] { color: var(--ink); }
+.nav-ind { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; border-radius: 2px; background: var(--accent); opacity: 0; transition: transform .45s var(--ease), width .45s var(--ease), opacity .3s; pointer-events: none; }
+.tools { display: flex; gap: .5rem; }
+@media (max-width: 720px) {
+  .nav { order: 3; width: 100%; gap: 1.2rem; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+}
+
+/* الأزرار الصغيرة في الهيدر */
+.icon-btn { position: relative; overflow: hidden; display: inline-grid; place-items: center; min-width: 2.4rem; height: 2.4rem; padding: 0 .6rem; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); font: 500 .85rem var(--f-mono); letter-spacing: 0; cursor: pointer; transition: border-color .2s, background-color .2s, transform .15s var(--ease); }
+.icon-btn:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.icon-btn:active { transform: scale(.92); }
+.icon-btn svg { width: 1.1rem; height: 1.1rem; transform: rotate(var(--rot, 0deg)); transition: transform .6s cubic-bezier(.3, 1.5, .5, 1); }
+
+/* ---------- 5) الواجهة (Hero) ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(44rem 26rem at 80% 28%, var(--glow), transparent 70%),
+    radial-gradient(34rem 22rem at 10% 85%, var(--glow), transparent 70%);
+}
+.hero canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+.hero .wrap { position: relative; z-index: 1; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 2.5rem 3rem; align-items: center; padding-block: clamp(2.5rem, 7vw, 5.5rem); }
+@media (max-width: 860px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.kicker { margin: 0; font: 500 .8rem/1.5 var(--f-mono); letter-spacing: var(--ls); text-transform: var(--tt); color: var(--accent); }
+.name { display: flex; flex-direction: column; margin: .9rem 0 0; font-family: var(--f-display); font-weight: 900; text-transform: var(--tt); line-height: .88; font-size: clamp(3.6rem, 11vw, 8.4rem); letter-spacing: .005em; }
+.name .ln { display: block; overflow: hidden; padding-block: .14em; margin-block: -.14em; }
+.name .ln > span { display: block; animation: ln-rise 1s var(--ease) calc(var(--i, 0) * 130ms + 150ms) both; }
+.name .ln + .ln { color: var(--accent); }
+:root[lang="ar"] .name { margin-bottom: .5em; font-weight: 700; line-height: .84; font-size: clamp(3.2rem, 10vw, 7rem); letter-spacing: 0; }
+:root[lang="ar"] .name .ln { padding-block: .3em; margin-block: -.3em; }   /* مساحة أكبر حتى لا تُقص الهمزة ونزول الحروف */
+.lead { margin: 1.4rem 0 0; max-width: 34em; font-size: clamp(1.1rem, 2.2vw, 1.35rem); line-height: 1.5; }
+.sub { margin: .8rem 0 0; max-width: 36em; color: var(--ink-2); }
+.cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
+.hero-in { animation: rise .9s var(--ease) calc(var(--i, 0) * 110ms + 350ms) both; }
+@keyframes ln-rise { from { transform: translateY(108%); } }
+@keyframes rise { from { opacity: 0; transform: translateY(1.2rem); } }
+
+/* الأزرار الكبيرة */
+.btn { position: relative; overflow: hidden; isolation: isolate; display: inline-flex; align-items: center; gap: .6rem; padding: .8rem 1.3rem; border: 1.5px solid var(--accent); border-radius: 6px; font: 500 .95rem var(--f-body); text-decoration: none; cursor: pointer; transition: background-color .25s, color .25s, transform .2s var(--ease), box-shadow .25s; }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn:active { transform: translateY(0) scale(.96); box-shadow: none; }
+.btn-primary { background: var(--accent); color: var(--accent-fg); }
+.btn-primary::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .28) 50%, transparent 70%); transform: translateX(-120%); transition: transform .7s var(--ease); }
+.btn-primary:hover::before { transform: translateX(120%); }
+.btn-ghost { background: transparent; color: var(--accent); }
+.btn-ghost:hover { background: var(--accent); color: var(--accent-fg); }
+.btn-band { background: var(--hl); border-color: var(--hl); color: var(--on-hl); }
+.arr { display: inline-block; transition: transform .3s var(--ease); }
+[dir="rtl"] .arr { transform: scaleX(-1); }
+.btn:hover .arr { transform: translateX(5px); }
+[dir="rtl"] .btn:hover .arr { transform: translateX(-5px) scaleX(-1); }
+
+.avail { display: flex; align-items: center; gap: .65rem; margin: 1.6rem 0 0; font: 400 .82rem var(--f-mono); color: var(--ink-2); }
+.led { position: relative; flex: none; width: .55rem; height: .55rem; border-radius: 50%; background: var(--ok); }
+.led::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--ok); animation: ping 2.2s ease-out infinite; }
+@keyframes ping { from { opacity: .7; transform: scale(1); } to { opacity: 0; transform: scale(3.2); } }
+
+/* الشريحة (DIP chip) */
+.chip { direction: ltr; display: grid; grid-template-columns: minmax(0, 1fr) minmax(7rem, 9.5rem) minmax(0, 1fr); grid-template-rows: repeat(6, 2.5rem); width: 100%; max-width: 26rem; margin-inline: auto; font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .3s ease-out; }
+.chip-body { grid-column: 2; grid-row: 1 / -1; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .45rem; text-align: center; border-radius: 6px; background-color: var(--chip); background-image: linear-gradient(160deg, rgba(255, 255, 255, .09), transparent 55%); color: var(--chip-ink); box-shadow: var(--shadow); animation: body-in 1s var(--ease) .2s both; }
+.chip-body::before { content: ""; position: absolute; top: -.75rem; left: 50%; width: 1.5rem; height: 1.5rem; margin-left: -.75rem; border-radius: 50%; background: var(--paper); }
+.chip-body::after { content: ""; position: absolute; left: .7rem; top: .95rem; width: .45rem; height: .45rem; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+.m-id { font-size: .8rem; font-weight: 500; letter-spacing: .14em; }
+.m-big { font-family: var(--f-display-latin); font-weight: 900; font-size: 3rem; line-height: .9; color: var(--hl); animation: boot 1.3s steps(1, end) 1s both; }
+.m-sub { font-size: .68rem; letter-spacing: .2em; opacity: .85; }
+.m-code { font-size: .62rem; letter-spacing: .12em; opacity: .55; }
+.pin { display: flex; align-items: center; min-width: 0; }
+.pin-l { grid-column: 1; justify-content: flex-end; animation: pin-l .7s var(--ease) calc(var(--k, 0) * 80ms + 500ms) both; }
+.pin-r { grid-column: 3; justify-content: flex-start; animation: pin-r .7s var(--ease) calc(var(--k, 0) * 80ms + 500ms) both; }
+.pin-label { padding: 0 .5rem; font-size: .68rem; letter-spacing: .06em; color: var(--ink-2); white-space: nowrap; }
+.pin-stub { display: grid; place-items: center; flex: none; width: 1.7rem; height: 1rem; background: var(--pin); color: var(--pin-ink); font-size: .6rem; font-weight: 500; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .18); animation: scan 7s ease-in-out calc(var(--n, 1) * 240ms + 2.5s) infinite; }
+@keyframes body-in { from { opacity: 0; transform: scale(.88); } }
+@keyframes pin-l { from { opacity: 0; transform: translateX(-1.4rem); } }
+@keyframes pin-r { from { opacity: 0; transform: translateX(1.4rem); } }
+@keyframes boot { 0%, 100% { opacity: 1; } 8% { opacity: 0; } 22% { opacity: 1; } 34% { opacity: .2; } 48% { opacity: 1; } 60% { opacity: .5; } 74% { opacity: 1; } }
+@keyframes scan { 0%, 12%, 100% { background: var(--pin); color: var(--pin-ink); } 5% { background: var(--accent); color: var(--accent-fg); } }
+
+/* ---------- 6) الأقسام ---------- */
+.section { padding-block: clamp(3rem, 7vw, 5.5rem); scroll-margin-top: 4.5rem; }
+.section.alt { background: var(--paper-2); }
+.sec-head { position: relative; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem 2rem; margin-bottom: 2.2rem; padding-bottom: 1rem; }
+.sec-head::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; transform-origin: left; }
+[dir="rtl"] .sec-head::after { transform-origin: right; }
+.sec-title { margin: 0; font-family: var(--f-display); font-weight: 800; text-transform: var(--tt); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1; letter-spacing: .01em; }
+.sec-cap { margin: 0; font: 400 .85rem var(--f-mono); color: var(--ink-2); }
+:root[lang="ar"] :is(.sec-title, .card h3, .svc-item h3) { font-weight: 700; line-height: 1.25; letter-spacing: 0; }
+.link { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 2px; color: var(--accent); font-weight: 500; text-decoration: none; transition: background-size .3s var(--ease); }
+[dir="rtl"] .link { background-position: 100% 100%; }
+.link:hover { background-size: 100% 3px; }
+.section.hit .sec-title { animation: hit 1s var(--ease); }
+@keyframes hit { 35% { color: var(--accent); transform: translateY(-.35rem); } }
+
+/* نبذة */
+.about { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 2.5rem 4rem; }
+@media (max-width: 860px) { .about { grid-template-columns: minmax(0, 1fr); } }
+.prose p { margin: 0 0 1.1rem; max-width: 62ch; }
+.spec { display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; margin: 0; border-top: 1px solid var(--line); }
+.spec dt, .spec dd { margin: 0; padding: .8rem 0; border-bottom: 1px solid var(--line); }
+.spec dt { padding-inline-end: 1.5rem; font: 500 .76rem var(--f-mono); letter-spacing: var(--ls); text-transform: var(--tt); color: var(--ink-2); }
+.spec dd { font-size: .95rem; }
+
+/* المهارات */
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 4rem; align-items: start; }
+@media (min-width: 861px) { .skills .group:first-child { grid-row: span 3; } }
+@media (max-width: 860px) { .skills { grid-template-columns: minmax(0, 1fr); } }
+.group h3 { margin: 0 0 .3rem; font: 500 .8rem var(--f-mono); letter-spacing: var(--ls); text-transform: var(--tt); color: var(--accent); }
+.rows { margin: 0; padding: 0; list-style: none; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .1rem 1rem; align-items: center; padding: .85rem 0; border-bottom: 1px solid var(--line); transition: padding .3s var(--ease); }
+.row:hover { padding-inline-start: .6rem; }
+.row-name { font-weight: 600; }
+.row-use { grid-column: 1 / -1; color: var(--ink-2); font-size: .88rem; }
+.level { display: flex; align-items: center; gap: .6rem; font: 400 .75rem var(--f-mono); color: var(--ink-2); }
+.leds { display: flex; gap: 3px; }
+.leds i { display: block; width: .9rem; height: .45rem; border-radius: 1px; background: var(--line); transition: background-color .45s ease, box-shadow .45s ease; }
+.leds i.on { background: var(--accent); box-shadow: 0 0 .55rem -.1rem var(--accent); }
+/* قبل ظهور السطر تكون المؤشرات مطفأة ثم تضيء واحدًا بعد الآخر */
+.js-reveal .row[data-reveal]:not(.in) .leds i.on { background: var(--line); box-shadow: none; }
+.js-reveal .row[data-reveal].in .leds i.on { transition-delay: calc(var(--d, 0ms) + 350ms + var(--bi, 0) * 150ms); }
+
+/* المشاريع */
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+@media (max-width: 980px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards .card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+.card { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: .9rem; min-width: 0; padding: 1.4rem; border: 1px solid var(--line); border-radius: 8px; background: var(--card); transition: border-color .25s, transform .35s var(--ease), box-shadow .35s; }
+.card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow); }
+.card > *, .svc-item > * { position: relative; z-index: 1; }
+.card::before, .svc-item::before { content: ""; position: absolute; inset: 0; z-index: 0; opacity: 0; pointer-events: none; transition: opacity .35s; background: radial-gradient(18rem circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%); }
+.card:hover::before, .svc-item:hover::before { opacity: 1; }
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font: 500 .74rem var(--f-mono); letter-spacing: var(--ls); text-transform: var(--tt); color: var(--ink-2); }
+.tag-sample { padding: .1rem .5rem; border: 1px dashed var(--accent); color: var(--accent); }
+.card h3 { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 1.9rem; line-height: 1; text-transform: var(--tt); }
+.card p { margin: 0; flex: 1; color: var(--ink-2); }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; }
+.chips li { list-style: none; padding: .15rem .55rem; border: 1px solid var(--line); border-radius: 4px; font: 400 .75rem var(--f-mono); letter-spacing: 0; transition: border-color .25s, color .25s; }
+.card:hover .chips li { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.card-links { display: flex; gap: 1.2rem; padding-top: .8rem; border-top: 1px solid var(--line); }
+
+/* الخدمات */
+.band { background: var(--band-bg); color: var(--band-fg); }
+.band .sec-cap { color: var(--band-mute); }
+.svc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+@media (max-width: 760px) { .svc { grid-template-columns: minmax(0, 1fr); } }
+.svc-item { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; gap: .9rem; min-width: 0; padding: 1.6rem; border: 1px solid var(--band-line); border-radius: 8px; transition: border-color .25s, transform .35s var(--ease); }
+.svc-item:hover { border-color: var(--hl); transform: translateY(-4px); }
+.svc-item::before { background: radial-gradient(18rem circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--hl) 14%, transparent), transparent 70%); }
+.svc-item h3 { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 2rem; line-height: 1; text-transform: var(--tt); color: var(--hl); }
+.svc-item p { margin: 0; }
+.points { display: grid; gap: .45rem; margin: .2rem 0 0; padding: 0; list-style: none; color: var(--band-mute); font-size: .92rem; }
+.points li { display: flex; align-items: baseline; gap: .7rem; }
+.points li::before { content: ""; flex: none; width: .5rem; height: .5rem; border-radius: 1px; background: var(--hl); transform: translateY(-.05rem); }
+.svc-cta { margin-top: 2rem; }
+
+/* التواصل */
+.contact { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 2rem 4rem; }
+@media (max-width: 860px) { .contact { grid-template-columns: minmax(0, 1fr); } }
+.contact-intro { margin: 0; max-width: 34em; font-size: 1.1rem; }
+.pins { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.pin-row { display: grid; grid-template-columns: 9rem minmax(0, 1fr) auto; gap: .4rem 1rem; align-items: center; padding: .9rem 0; border-bottom: 1px solid var(--line); transition: padding .3s var(--ease), background-color .3s; }
+.pin-row:hover { padding-inline-start: .6rem; background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.pin-row .k { display: flex; align-items: center; gap: .7rem; font: 500 .76rem var(--f-mono); letter-spacing: var(--ls); text-transform: var(--tt); color: var(--ink-2); }
+.ico { display: inline-grid; place-items: center; flex: none; width: 1.5rem; height: 1.5rem; color: var(--accent); transition: transform .4s cubic-bezier(.3, 1.6, .5, 1); }
+.ico svg { width: 100%; height: 100%; }
+.ico img { width: 100%; height: 100%; object-fit: contain; }
+.pin-row:hover .ico { transform: scale(1.22) rotate(-6deg); }
+.pin-row .v { justify-self: start; font: 400 .92rem var(--f-mono); letter-spacing: 0; overflow-wrap: anywhere; user-select: all; }
+.pin-actions { display: flex; gap: .5rem; }
+.mini { position: relative; overflow: hidden; padding: .35rem .8rem; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); font: 500 .78rem var(--f-mono); letter-spacing: 0; text-decoration: none; cursor: pointer; transition: border-color .2s, color .2s, background-color .2s, transform .15s var(--ease); }
+.mini:hover { border-color: var(--accent); color: var(--accent); }
+.mini:active { transform: scale(.92); }
+.mini.done { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); animation: pop .4s var(--ease); }
+@keyframes pop { 40% { transform: scale(1.12); } }
+@media (max-width: 640px) {
+  .pin-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .pin-row .k { grid-column: 1 / -1; }
+}
+
+/* ---------- 7) الأنيميشن العام ---------- */
+/* ظهور العناصر عند التمرير. لا يُفعَّل إلا إذا أضاف script.js الصنف js-reveal. */
+.js-reveal [data-reveal] { opacity: 0; transform: translateY(1.6rem); transition: opacity .8s ease, transform .8s var(--ease); transition-delay: var(--d, 0ms); }
+.js-reveal [data-reveal].in { opacity: 1; transform: none; }
+.js-reveal .sec-head[data-reveal]::after { transform: scaleX(0); }
+.js-reveal .sec-head[data-reveal].in::after { transform: scaleX(1); transition: transform 1s var(--ease) .2s; }
+
+/* موجة تظهر عند الضغط على أي زر */
+.ripple { position: absolute; z-index: 0; border-radius: 50%; background: currentColor; opacity: .3; pointer-events: none; transform: scale(0); animation: ripple .7s ease-out forwards; }
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+/* دائرة تتسع عند تبديل الثيم (View Transitions) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
+
+/* ---------- 8) الفوتر وتقليل الحركة ---------- */
+.foot { padding-block: 1.6rem; border-top: 1px solid var(--line); font: 400 .8rem var(--f-mono); color: var(--ink-2); }
+.foot-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1.5rem; }
+
+/* من فعّل "تقليل الحركة" في جهازه، أو أوقفت الأنيميشن من SETTINGS.animations، لا يرى أي حركة */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.no-motion { scroll-behavior: auto; }
+.no-motion *, .no-motion *::before, .no-motion *::after { animation: none !important; transition: none !important; }
+
+</style>
+<div id="top"></div>
+
+  
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <div class="wrap bar">
+      <!-- اللوجو: شريحة تُرسم بالخط ثم تدور حولها نبضة. الحرفان من SITE.initials في script.js -->
+      <a class="mark" href="#top" aria-label="Home">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 48 48" focusable="false">
+            <path class="lg-pins" d="M3 18h7M3 24h7M3 30h7M38 18h7M38 24h7M38 30h7"/>
+            <rect class="lg-body" x="10" y="8" width="28" height="32" rx="3.5" pathLength="100"/>
+            <rect class="lg-run" x="10" y="8" width="28" height="32" rx="3.5" pathLength="100"/>
+          </svg>
+          <b id="mark-chip"></b>
+        </span>
+        <span id="mark-name"></span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#about" data-i18n="nav_about"></a>
+        <a href="#skills" data-i18n="nav_skills"></a>
+        <a href="#projects" data-i18n="nav_projects"></a>
+        <a href="#services" data-i18n="nav_services"></a>
+        <a href="#contact" data-i18n="nav_contact"></a>
+        <span class="nav-ind" id="nav-ind" aria-hidden="true"></span>
+      </nav>
+      <div class="tools">
+        <button class="icon-btn" id="lang-btn" type="button"></button>
+        <button class="icon-btn" id="theme-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ الواجهة ============ -->
+    <section class="hero" id="hero" aria-labelledby="hero-name">
+      <canvas id="traces" aria-hidden="true"></canvas>
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <p class="kicker hero-in" style="--i:0" id="hero-kicker"></p>
+            <h1 class="name" id="hero-name"></h1>
+            <p class="lead hero-in" style="--i:3" id="hero-lead"></p>
+            <p class="sub hero-in" style="--i:4" id="hero-sub"></p>
+            <div class="cta hero-in" style="--i:5">
+              <a class="btn btn-primary" href="#projects"><span data-i18n="cta_projects"></span><span class="arr" aria-hidden="true">→</span></a>
+              <a class="btn btn-ghost" href="#contact"><span data-i18n="cta_contact"></span><span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <p class="avail hero-in" style="--i:6" id="hero-avail-row"><span class="led" aria-hidden="true"></span><span id="hero-avail"></span></p>
+          </div>
+          <div class="chip" id="chip" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ نبذة ============ -->
+    <section id="about" class="section">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><h2 class="sec-title" data-i18n="about_title"></h2><p class="sec-cap" data-i18n="about_cap"></p></div>
+        <div class="about">
+          <div class="prose" id="about-text"></div>
+          <dl class="spec" id="about-spec" data-reveal style="--d:150ms"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ المهارات ============ -->
+    <section id="skills" class="section alt">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><h2 class="sec-title" data-i18n="skills_title"></h2><p class="sec-cap" data-i18n="skills_cap"></p></div>
+        <div class="skills" id="skills-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ المشاريع ============ -->
+    <section id="projects" class="section">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><h2 class="sec-title" data-i18n="projects_title"></h2><p class="sec-cap" data-i18n="projects_cap"></p></div>
+        <div class="cards" id="cards"></div>
+      </div>
+    </section>
+
+    <!-- ============ الخدمات ============ -->
+    <section id="services" class="section band">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><h2 class="sec-title" data-i18n="services_title"></h2><p class="sec-cap" data-i18n="services_cap"></p></div>
+        <div class="svc" id="svc"></div>
+        <div class="svc-cta" data-reveal>
+          <a class="btn btn-band" id="svc-cta" href="#contact"><span id="svc-cta-label"></span><span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ التواصل ============ -->
+    <section id="contact" class="section alt">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><h2 class="sec-title" data-i18n="contact_title"></h2><p class="sec-cap" data-i18n="contact_cap"></p></div>
+        <div class="contact">
+          <p class="contact-intro" data-i18n="contact_intro" data-reveal></p>
+          <ul class="pins" id="pins"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <span id="foot-text"></span>
+      <a class="link" href="#top" data-i18n="to_top"></a>
+    </div>
+  </footer>
+  <div class="sr-only" id="live" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   script.js
+   الجزء 1: بيانات الموقع. هنا تغيّر المحتوى لكل عميل، ولا تحتاج غيره.
+   الجزء 2: الكود الذي يبني الصفحة ويحرّكها. لا تلمسه إلا إذا أردت تغيير السلوك.
+
+   قواعد التعديل في الجزء 1:
+   - كل نص له نسختان: en للإنجليزية و ar للعربية.
+   - النص يُكتب بين علامتي تنصيص "..."، وبعد كل عنصر فاصلة ،
+   - لا تحذف الأقواس { } [ ] ولا الفواصل.
+   - السطر الذي يبدأ بـ // هو تعليق: لا يؤثر على الموقع.
+   ===================================================================== */
+
+/* =====================================================================
+   الجزء 1: بيانات الموقع
+   ===================================================================== */
+
+/* ---------- إعدادات عامة ---------- */
+const SETTINGS = {
+  defaultLang: "ar",        // اللغة التي يفتح بها الموقع: "ar" أو "en"
+  showLangToggle: true,     // false = إخفاء زر تبديل اللغة (موقع بلغة واحدة)
+  animations: true,         // false = إيقاف كل الحركة (لعميل يفضّل موقعًا ساكنًا)
+  sections: {               // false = إخفاء القسم من الصفحة ومن القائمة
+    about: true,
+    skills: true,
+    projects: true,
+    services: true,
+    contact: true
+  }
+};
+
+/* ---------- الاسم ---------- */
+const SITE = {
+  name: { en: "Ahmed Ragab", ar: "أحمد رجب" },   // يُقسم إلى سطرين عند المسافة
+  initials: "AR"                                  // الحرفان داخل اللوجو المتحرك
+};
+
+/* ---------- الواجهة (أول ما يراه الزائر) ---------- */
+const HERO = {
+  kicker: { en: "Back-end .NET developer, in training", ar: "مطوّر Back-end بلغة .NET، قيد التدريب" },
+  lead: {
+    en: "I'm learning to build the part of the web users never see: APIs, databases and business logic in C# and ASP.NET Core.",
+    ar: "أتعلّم بناء الجزء الذي لا يراه المستخدم من الويب: واجهات برمجية وقواعد بيانات ومنطق التطبيق، بلغة C# وإطار ASP.NET Core."
+  },
+  sub: {
+    en: "Electronics engineering student, Level 2. I bring the habit of testing every connection before moving to the next one into the code I write.",
+    ar: "طالب هندسة إلكترونيات في المستوى الثاني. أنقل إلى الكود الذي أكتبه عادة اختبار كل توصيلة قبل الانتقال إلى التالية."
+  },
+  avail: { en: "Open to freelance work and junior roles", ar: "متاح للعمل الحر ولوظائف المبتدئين" }   // اكتب null لإخفاء السطر
+};
+
+/* ---------- الشريحة الإلكترونية في الواجهة ----------
+   النص على جسمها وأسماء الأرجل. لعميل من مجال آخر غيّرها، مثال لمصمم:
+   big: "UI", sub: "DESIGNER", left: ["FIGMA", "PHOTOSHOP", ...]
+   اجعل عدد الأرجل في الجهتين متساويًا (من 4 إلى 8). */
+const CHIP = {
+  id: "AR-2026",
+  big: ".NET",
+  sub: "BACK-END",
+  code: "2645 · EG",
+  left: ["C#", "ASP.NET", "EF CORE", "SQL", "REST", "GIT"],
+  right: ["HTML", "CSS", "JS", "LOGIC", "CIRCUITS", "GND"]
+};
+
+/* ---------- نبذة ---------- */
+const ABOUT = {
+  paragraphs: [
+    {
+      en: "I study electronics engineering at the Faculty of Electronic Engineering in Menouf, and I'm training to become a back-end .NET developer. I came to programming from circuits. I like systems where every part has one clear job and you can follow a signal from input to output. A web request travels the same way.",
+      ar: "أدرس هندسة الإلكترونيات في كلية الهندسة الإلكترونية بمنوف، وأتدرّب لأصبح مطوّر Back-end بلغة .NET. وصلت إلى البرمجة من عالم الدوائر، وأحب الأنظمة التي يؤدي كل جزء فيها وظيفة واحدة واضحة، ويمكن فيها تتبّع الإشارة من المدخل إلى المخرج. وطلب الويب يسير بالطريقة نفسها."
+    },
+    {
+      en: "Right now I'm building ASP.NET Core and SQL Server projects, and I take small freelance jobs so I can practice on real requirements.",
+      ar: "أعمل حاليًا على مشاريع ASP.NET Core و SQL Server، وأقبل أعمالًا صغيرة بنظام العمل الحر لأتدرّب على متطلبات حقيقية."
+    }
+  ],
+  // الجدول الجانبي: k = العنوان، v = القيمة. أضف أو احذف أسطرًا كما تشاء.
+  facts: [
+    { k: { en: "Studying", ar: "أدرس" },    v: { en: "Electronics engineering, Level 2", ar: "هندسة الإلكترونيات، المستوى الثاني" } },
+    { k: { en: "Faculty", ar: "الكلية" },   v: { en: "Faculty of Electronic Engineering, Menouf", ar: "كلية الهندسة الإلكترونية، منوف" } },
+    { k: { en: "Focus", ar: "التخصص" },     v: { en: "Back-end .NET: C#, ASP.NET Core, SQL Server", ar: "Back-end بلغة .NET: C# و ASP.NET Core و SQL Server" } },
+    { k: { en: "Based in", ar: "أقيم في" }, v: { en: "Menoufia, Egypt", ar: "المنوفية، مصر" } },
+    { k: { en: "Goal", ar: "الهدف" },       v: { en: "Junior back-end .NET role", ar: "وظيفة مطوّر Back-end .NET مبتدئ" } }
+  ]
+};
+
+/* ---------- المهارات ----------
+   level: 1 = أتعلّمها، 2 = أتدرّب عليها، 3 = أستخدمها بثقة. اجعلها صادقة.
+   name يمكن أن يكون نصًا عاديًا "C#" أو بلغتين { en: "...", ar: "..." } */
+const SKILLS = [
+  { group: { en: "Back-end", ar: "Back-end" }, items: [
+    { name: "C#", level: 2, use: { en: "OOP, collections, LINQ", ar: "البرمجة كائنية التوجّه والمجموعات و LINQ" } },
+    { name: "ASP.NET Core", level: 1, use: { en: "Web APIs, routing, controllers", ar: "واجهات Web API والتوجيه والـ Controllers" } },
+    { name: "Entity Framework Core", level: 1, use: { en: "Database access and migrations", ar: "التعامل مع قاعدة البيانات والـ Migrations" } },
+    { name: "SQL Server", level: 2, use: { en: "Tables, queries, joins", ar: "الجداول والاستعلامات والـ Joins" } },
+    { name: "REST APIs", level: 1, use: { en: "Endpoints, JSON, status codes", ar: "نقاط النهاية و JSON وأكواد الحالة" } }
+  ]},
+  { group: { en: "Front-end", ar: "Front-end" }, items: [
+    { name: "HTML & CSS", level: 3, use: { en: "Semantic, responsive pages", ar: "صفحات دلالية ومتجاوبة" } },
+    { name: "JavaScript", level: 2, use: { en: "DOM, events, fetch", ar: "الـ DOM والأحداث و fetch" } }
+  ]},
+  { group: { en: "Tools", ar: "الأدوات" }, items: [
+    { name: "Git & GitHub", level: 2, use: { en: "Commits, branches, remotes", ar: "الـ Commits والفروع والمستودعات البعيدة" } }
+  ]},
+  { group: { en: "Electronics", ar: "الإلكترونيات" }, items: [
+    { name: { en: "Circuits & digital logic", ar: "الدوائر والمنطق الرقمي" }, level: 2, use: { en: "Foundation from coursework", ar: "أساس من مقررات الكلية" } }
+  ]}
+];
+
+/* ---------- المشاريع ----------
+   لإضافة مشروع: انسخ أي كتلة { ... } كاملة مع الفاصلة بعدها والصقها وعدّلها.
+   sample: true  تظهر شارة "نموذج". اجعلها false للمشاريع الحقيقية.
+   repo: رابط الكود على GitHub. live: رابط المشروع يعمل. اتركهما "" إن لم يوجدا. */
+const PROJECTS = [
+  {
+    kind: { en: "Back-end API", ar: "واجهة برمجية" },
+    title: "Task Manager API",
+    desc: {
+      en: "A REST API for tasks and users with validation and token login. Built to practice layered architecture in ASP.NET Core.",
+      ar: "واجهة REST API للمهام والمستخدمين مع التحقق من البيانات وتسجيل الدخول بالتوكن. بُنيت للتدرّب على البنية متعددة الطبقات في ASP.NET Core."
+    },
+    tags: ["C#", "ASP.NET Core", "EF Core", "SQL Server"],
+    sample: true,
+    repo: "",
+    live: ""
+  },
+  {
+    kind: { en: "Hardware + back-end", ar: "عتاد + Back-end" },
+    title: "Sensor Logger",
+    desc: {
+      en: "Reads temperature from an Arduino over serial and stores each reading in SQL Server, with a small page that charts the last hour.",
+      ar: "يقرأ درجة الحرارة من Arduino عبر المنفذ التسلسلي ويحفظ كل قراءة في SQL Server، مع صفحة صغيرة ترسم آخر ساعة."
+    },
+    tags: ["C#", "Arduino", "SQL Server", "JavaScript"],
+    sample: true,
+    repo: "",
+    live: ""
+  },
+  {
+    kind: { en: "Front-end", ar: "Front-end" },
+    title: { en: "This Portfolio", ar: "هذا البورتفوليو" },
+    desc: {
+      en: "A bilingual, responsive portfolio in plain HTML, CSS and JavaScript, with light and dark themes and motion.",
+      ar: "بورتفوليو ثنائي اللغة ومتجاوب، مكتوب بـ HTML و CSS و JavaScript فقط، مع ثيم فاتح وداكن وحركة."
+    },
+    tags: ["HTML", "CSS", "JavaScript"],
+    sample: false,
+    repo: "",
+    live: ""
+  }
+];
+
+/* ---------- الخدمات ---------- */
+const SERVICES = {
+  // الزر أسفل القسم. url فارغ = ينقل الزائر إلى قسم التواصل.
+  cta: { label: { en: "Order on Khamsat", ar: "اطلب عبر خمسات" }, url: "" },
+  items: [
+    {
+      title: { en: "Portfolio websites", ar: "مواقع بورتفوليو" },
+      desc: {
+        en: "A personal site that loads fast, reads well on a phone and shows your work clearly.",
+        ar: "موقع شخصي سريع التحميل، واضح على الهاتف، ويعرض أعمالك بشكل مرتب."
+      },
+      points: [
+        { en: "Works on phones and desktops", ar: "يعمل على الهاتف وسطح المكتب" },
+        { en: "Arabic, English or both", ar: "بالعربية أو الإنجليزية أو بكلتيهما" },
+        { en: "Light and dark themes", ar: "ثيم فاتح وداكن" }
+      ]
+    },
+    {
+      title: { en: "Word and PDF conversion", ar: "تحويل Word و PDF" },
+      desc: {
+        en: "Conversion between Word and PDF with the layout and tables kept as close to the original as possible.",
+        ar: "تحويل بين Word و PDF مع الحفاظ على التنسيق والجداول أقرب ما يكون إلى الأصل."
+      },
+      points: [
+        { en: "Word to PDF and PDF to Word", ar: "من Word إلى PDF ومن PDF إلى Word" },
+        { en: "Tables and headings checked by hand", ar: "مراجعة الجداول والعناوين يدويًا" },
+        { en: "Delivered as ready-to-use files", ar: "تسليم ملفات جاهزة للاستخدام" }
+      ]
+    }
+  ]
+};
+
+/* ---------- التواصل ----------
+   text:  النص الظاهر (ويُنسخ عند الضغط على زر النسخ).
+   url:   الرابط الذي يفتحه زر "فتح". اتركه "" فيظهر زر النسخ فقط. أمثلة:
+          بريد:     "mailto:name@gmail.com"
+          واتساب:   "https://wa.me/201012345678"   (رمز الدولة 20 ثم الرقم بدون الصفر الأول)
+          جيت هاب:  "https://github.com/username"
+   icon:  اسم أيقونة جاهزة من القائمة ICONS بالأسفل:
+          email, phone, whatsapp, telegram, github, linkedin, briefcase, globe
+   image: بديل للأيقونة الجاهزة: مسار صورة أو SVG من عندك، مثل "assets/my-logo.svg".
+          (ضعه بدل icon، وضع الملف داخل مجلد assets بجانب index.html) */
+const CONTACT = [
+  { label: { en: "Email", ar: "البريد" }, text: "your.email@example.com", url: "", icon: "email" },
+  { label: { en: "WhatsApp", ar: "واتساب" }, text: "+20 1XX XXX XXXX", url: "", icon: "whatsapp" },
+  { label: { en: "GitHub", ar: "GitHub" }, text: "github.com/your-username", url: "", icon: "github" },
+  { label: { en: "LinkedIn", ar: "LinkedIn" }, text: "linkedin.com/in/your-name", url: "", icon: "linkedin" },
+  { label: { en: "Khamsat", ar: "خمسات" }, text: "khamsat.com/user/your-username", url: "", icon: "briefcase" }
+];
+
+/* ---------- الأيقونات الجاهزة (SVG داخل الكود، لا تحتاج مكتبة خارجية) ----------
+   لإضافة أيقونة جديدة: افتح simpleicons.org، اختر الشعار، انسخ قيمة d من وسم path،
+   ثم أضف سطرًا هنا بنفس الشكل (مع الاسم الجديد) واستخدم الاسم في icon داخل CONTACT. */
+const SOLID = (d) => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="' + d + '"/></svg>';
+const LINE = (inner) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
+const ICONS = {
+  email: LINE('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6.5L20.5 7"/>'),
+  phone: LINE('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),
+  briefcase: LINE('<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'),
+  globe: LINE('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
+  whatsapp: SOLID("M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.52.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.483.709.3 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"),
+  github: SOLID("M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"),
+  linkedin: SOLID("M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"),
+  telegram: SOLID("M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z")
+};
+
+/* ---------- النصوص الثابتة للواجهة (عناوين الأقسام والأزرار) ---------- */
+const UI = {
+  en: {
+    nav_about: "About", nav_skills: "Skills", nav_projects: "Projects", nav_services: "Services", nav_contact: "Contact",
+    cta_projects: "See projects", cta_contact: "Get in touch",
+    about_title: "About", about_cap: "Who I am and where I'm headed",
+    skills_title: "Skills", skills_cap: "What I use and how far along I am",
+    projects_title: "Projects", projects_cap: "Practice builds and real work",
+    services_title: "Services", services_cap: "Small jobs I take on Khamsat",
+    contact_title: "Contact", contact_cap: "Where to reach me",
+    contact_intro: "Open to junior opportunities and small freelance projects. Write to me with a short description of what you need.",
+    copy: "Copy", copied: "Copied", selected: "Selected, copy it", open: "Open", code: "Code", live: "Live", sample: "Sample",
+    level_1: "Learning", level_2: "Practicing", level_3: "Comfortable",
+    theme: "Switch between light and dark theme", lang: "Switch language", to_top: "Back to top",
+    foot: "© {year} {name}. Written in HTML, CSS and JavaScript.",
+    title_suffix: " | Portfolio"
+  },
+  ar: {
+    nav_about: "نبذة", nav_skills: "المهارات", nav_projects: "المشاريع", nav_services: "الخدمات", nav_contact: "تواصل",
+    cta_projects: "شاهد المشاريع", cta_contact: "تواصل معي",
+    about_title: "نبذة", about_cap: "من أنا وإلى أين أتجه",
+    skills_title: "المهارات", skills_cap: "ما أستخدمه ومدى تقدّمي فيه",
+    projects_title: "المشاريع", projects_cap: "مشاريع تدريب وأعمال حقيقية",
+    services_title: "الخدمات", services_cap: "أعمال صغيرة أقبلها على خمسات",
+    contact_title: "تواصل", contact_cap: "طرق التواصل معي",
+    contact_intro: "متاح لفرص المبتدئين وللمشاريع الصغيرة بنظام العمل الحر. اكتب لي وصفًا مختصرًا لما تحتاجه.",
+    copy: "نسخ", copied: "تم النسخ", selected: "تم التحديد، انسخه يدويًا", open: "فتح", code: "الكود", live: "المعاينة", sample: "نموذج",
+    level_1: "أتعلّمها", level_2: "أتدرّب عليها", level_3: "أستخدمها بثقة",
+    theme: "التبديل بين الثيم الفاتح والداكن", lang: "تغيير اللغة", to_top: "العودة للأعلى",
+    foot: "© {year} {name}. مكتوب بـ HTML و CSS و JavaScript.",
+    title_suffix: " | بورتفوليو"
+  }
+};
+
+/* =====================================================================
+   الجزء 2: الكود الذي يبني الصفحة ويحرّكها (لا تحتاج لتعديله لتغيير المحتوى)
+   ===================================================================== */
+
+const root = document.documentElement;
+const $ = (selector) => document.querySelector(selector);
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let lang = SETTINGS.defaultLang === "en" ? "en" : "ar";
+let heroTraces = null;
+let revealObserver = null;
+
+/* ---------- أدوات صغيرة ---------- */
+
+// داخل الجمل العربية تنقلب رموز مثل # و . في الكلمات الإنجليزية (تظهر C# هكذا: #C).
+// الدالة fix تعزل كل كلمة إنجليزية (C#, ASP.NET Core, SQL Server ...) فيبقى ترتيبها صحيحًا.
+const LATIN_WORD = "\\.?[A-Za-z0-9][A-Za-z0-9#+_\\/-]*";
+const LATIN_RUN = new RegExp(LATIN_WORD + "(?:(?:\\s[&+]\\s|[. ]\\.?)" + LATIN_WORD.replace("\\.?", "") + ")*", "g");   // كلمات إنجليزية متجاورة، مثل: Git & GitHub
+function fix(text) {
+  return lang === "ar" ? text.replace(LATIN_RUN, "⁦$&⁩") : text;
+}
+
+function t(x) { return fix(typeof x === "string" ? x : x[lang]); }   // يختار نسخة اللغة الحالية
+
+function el(tag, className, text) {                                    // ينشئ عنصر HTML
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+function makeLink(label, url, className) {                           // رابط: يفتح في تبويب جديد إن بدأ بـ http
+  const a = el("a", className, label);
+  a.href = url;
+  if (/^https?:/i.test(url)) {
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+  }
+  return a;
+}
+
+function readStored(key) {
+  try { return localStorage.getItem(key); } catch (err) { return null; }
+}
+function writeStored(key, value) {
+  try { localStorage.setItem(key, value); } catch (err) { /* التخزين غير متاح */ }
+}
+
+function motionOff() { return root.classList.contains("no-motion") || reduceMotion.matches; }
+
+/* ---------- ضبط الثيم واللغة والحركة مبكرًا (قبل ظهور الصفحة) ---------- */
+(function applyEarlySettings() {
+  let theme = readStored("site-theme");
+  if (theme !== "dark" && theme !== "light") {
+    theme = root.getAttribute("data-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+  root.setAttribute("data-theme", theme);
+
+  const savedLang = readStored("site-lang");
+  if (SETTINGS.showLangToggle && (savedLang === "ar" || savedLang === "en")) lang = savedLang;
+  root.lang = lang;
+  root.dir = lang === "ar" ? "rtl" : "ltr";
+
+  if (SETTINGS.animations === false) root.classList.add("no-motion");
+  else if (!reduceMotion.matches && "IntersectionObserver" in window) root.classList.add("js-reveal");
+})();
+
+/* ---------- ظهور العناصر عند التمرير ---------- */
+function mark(node, index) {                       // يجعل العنصر يظهر تدريجيًا عند وصول الزائر إليه
+  node.setAttribute("data-reveal", "");
+  node.style.setProperty("--d", Math.min(index, 8) * 90 + "ms");
+  return node;
+}
+
+function watchReveals() {
+  if (!revealObserver) return;
+  document.querySelectorAll("[data-reveal]:not(.in)").forEach((node) => revealObserver.observe(node));
+}
+
+function initReveal() {
+  if (!root.classList.contains("js-reveal")) return;
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const node = entry.target;
+      node.classList.add("in");
+      revealObserver.unobserve(node);
+      const delay = parseFloat(node.style.getPropertyValue("--d")) || 0;
+      // بعد انتهاء الظهور نزيل data-reveal حتى لا يتعارض مع حركة المرور بالماوس
+      setTimeout(() => node.removeAttribute("data-reveal"), delay + 1500);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  watchReveals();
+}
+
+/* ---------- بناء أجزاء الصفحة ---------- */
+function applyUI() {
+  document.querySelectorAll("[data-i18n]").forEach((node) => { node.textContent = fix(UI[lang][node.dataset.i18n]); });
+  $("#mark-chip").textContent = SITE.initials;
+  $("#mark-name").textContent = SITE.name[lang];
+  $("#foot-text").textContent = fix(UI[lang].foot.replace("{year}", String(new Date().getFullYear())).replace("{name}", SITE.name[lang]));
+
+  const langBtn = $("#lang-btn");
+  langBtn.hidden = !SETTINGS.showLangToggle;
+  langBtn.textContent = lang === "ar" ? "EN" : "ع";
+  langBtn.setAttribute("aria-label", UI[lang].lang);
+  langBtn.title = UI[lang].lang;
+
+  const themeBtn = $("#theme-btn");
+  themeBtn.setAttribute("aria-label", UI[lang].theme);
+  themeBtn.title = UI[lang].theme;
+}
+
+function renderHero() {
+  const parts = SITE.name[lang].split(" ");
+  $("#hero-name").replaceChildren(...parts.map((part, i) => {
+    const line = el("span", "ln");
+    const inner = el("span", null, part);
+    inner.style.setProperty("--i", String(i));
+    line.append(inner);
+    return line;
+  }));
+  $("#hero-kicker").textContent = t(HERO.kicker);
+  $("#hero-lead").textContent = t(HERO.lead);
+  $("#hero-sub").textContent = t(HERO.sub);
+  $("#hero-avail-row").hidden = !HERO.avail;
+  if (HERO.avail) $("#hero-avail").textContent = t(HERO.avail);
+}
+
+function renderChip() {
+  const chip = $("#chip");
+  chip.replaceChildren();
+  const rows = Math.max(CHIP.left.length, CHIP.right.length);
+  chip.style.gridTemplateRows = "repeat(" + rows + ", 2.5rem)";
+
+  const body = el("div", "chip-body");
+  body.append(el("span", "m-id", CHIP.id), el("span", "m-big", CHIP.big), el("span", "m-sub", CHIP.sub), el("span", "m-code", CHIP.code));
+  chip.append(body);
+
+  function addPin(side, label, i, number) {
+    const pin = el("div", "pin pin-" + side);
+    pin.style.gridRow = String(i + 1);
+    pin.style.setProperty("--k", String(i));
+    const stub = el("span", "pin-stub", String(number));
+    stub.style.setProperty("--n", String(number));      // ترتيب الرجل: يحدد دور إضاءتها في حركة المسح
+    pin.append(...(side === "l" ? [el("span", "pin-label", label), stub] : [stub, el("span", "pin-label", label)]));
+    chip.append(pin);
+  }
+  CHIP.left.forEach((label, i) => addPin("l", label, i, i + 1));                   // اليسار: 1 إلى n من الأعلى للأسفل
+  CHIP.right.forEach((label, i) => addPin("r", label, i, rows * 2 - i));           // اليمين: 2n إلى n+1 من الأعلى للأسفل
+}
+
+function renderAbout() {
+  $("#about-text").replaceChildren(...ABOUT.paragraphs.map((p, i) => mark(el("p", null, t(p)), i)));
+  const dl = $("#about-spec");
+  dl.replaceChildren();
+  ABOUT.facts.forEach((fact) => dl.append(el("dt", null, t(fact.k)), el("dd", null, t(fact.v))));
+}
+
+function renderSkills() {
+  const grid = $("#skills-grid");
+  grid.replaceChildren();
+  SKILLS.forEach((g, gi) => {
+    const group = mark(el("div", "group"), gi);
+    group.append(el("h3", null, t(g.group)));
+    const list = el("ul", "rows");
+    g.items.forEach((item) => {
+      const row = el("li", "row");
+      const level = el("span", "level");
+      const leds = el("span", "leds");
+      leds.setAttribute("aria-hidden", "true");
+      for (let i = 1; i <= 3; i += 1) {
+        const led = el("i", i <= item.level ? "on" : "");
+        led.style.setProperty("--bi", String(i));
+        leds.append(led);
+      }
+      level.append(leds, el("span", null, UI[lang]["level_" + item.level]));
+      row.append(el("span", "row-name", t(item.name)), level, el("span", "row-use", t(item.use)));
+      list.append(row);
+    });
+    group.append(list);
+    grid.append(group);
+  });
+}
+
+function renderProjects() {
+  const box = $("#cards");
+  box.replaceChildren();
+  PROJECTS.forEach((p, index) => {
+    const card = mark(el("article", "card"), index);
+    const top = el("div", "card-top");
+    top.append(el("span", null, t(p.kind)));
+    if (p.sample) top.append(el("span", "tag-sample", UI[lang].sample));
+    const chips = el("ul", "chips");
+    p.tags.forEach((tag) => chips.append(el("li", null, fix(tag))));
+    card.append(top, el("h3", null, t(p.title)), el("p", null, t(p.desc)), chips);
+    if (p.repo || p.live) {
+      const links = el("div", "card-links");
+      if (p.repo) links.append(makeLink(UI[lang].code, p.repo, "link"));
+      if (p.live) links.append(makeLink(UI[lang].live, p.live, "link"));
+      card.append(links);
+    }
+    box.append(card);
+  });
+}
+
+function renderServices() {
+  const box = $("#svc");
+  box.replaceChildren();
+  SERVICES.items.forEach((s, index) => {
+    const item = mark(el("article", "svc-item"), index);
+    const points = el("ul", "points");
+    s.points.forEach((point) => points.append(el("li", null, t(point))));
+    item.append(el("h3", null, t(s.title)), el("p", null, t(s.desc)), points);
+    box.append(item);
+  });
+  const cta = $("#svc-cta");
+  $("#svc-cta-label").textContent = t(SERVICES.cta.label);
+  cta.href = SERVICES.cta.url || "#contact";
+  if (/^https?:/i.test(SERVICES.cta.url)) {
+    cta.target = "_blank";
+    cta.rel = "noopener noreferrer";
+  } else {
+    cta.removeAttribute("target");
+    cta.removeAttribute("rel");
+  }
+}
+
+function makeIcon(contact) {
+  const box = el("span", "ico");
+  box.setAttribute("aria-hidden", "true");
+  if (contact.icon && ICONS[contact.icon]) {
+    box.innerHTML = ICONS[contact.icon];             // نصوص ثابتة من هذا الملف فقط
+    return box;
+  }
+  if (contact.image) {
+    const img = el("img");
+    img.src = contact.image;
+    img.alt = "";
+    box.append(img);
+    return box;
+  }
+  return null;
+}
+
+function flash(button, key) {
+  button.textContent = UI[lang][key];
+  button.classList.add("done");
+  $("#live").textContent = UI[lang][key];
+  clearTimeout(button._timer);
+  button._timer = setTimeout(() => {
+    button.textContent = UI[lang].copy;
+    button.classList.remove("done");
+    $("#live").textContent = "";
+  }, 1800);
+}
+
+async function copyText(text, button, row) {
+  try {
+    await navigator.clipboard.writeText(text);
+    flash(button, "copied");
+  } catch (err) {
+    const range = document.createRange();
+    range.selectNodeContents(row.querySelector(".v"));
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    flash(button, "selected");
+  }
+}
+
+function renderContact() {
+  const list = $("#pins");
+  list.replaceChildren();
+  CONTACT.forEach((c, index) => {
+    const row = mark(el("li", "pin-row"), index);
+
+    const key = el("span", "k");
+    const icon = makeIcon(c);
+    if (icon) key.append(icon);
+    key.append(el("span", null, t(c.label)));
+
+    const value = el("span", "v", c.text);
+    value.dir = "ltr";
+
+    const actions = el("span", "pin-actions");
+    const copyBtn = el("button", "mini", UI[lang].copy);
+    copyBtn.type = "button";
+    copyBtn.addEventListener("click", () => copyText(c.text, copyBtn, row));
+    actions.append(copyBtn);
+    if (c.url) actions.append(makeLink(UI[lang].open, c.url, "mini"));
+
+    row.append(key, value, actions);
+    list.append(row);
+  });
+}
+
+function applySections() {
+  Object.keys(SETTINGS.sections).forEach((id) => {
+    const visible = SETTINGS.sections[id] !== false;
+    const section = document.getElementById(id);
+    if (section) section.hidden = !visible;
+    document.querySelectorAll('.nav a[href="#' + id + '"]').forEach((a) => { a.hidden = !visible; });
+  });
+}
+
+function setLang(next) {
+  lang = next;
+  root.lang = lang;
+  root.dir = lang === "ar" ? "rtl" : "ltr";
+  document.title = SITE.name[lang] + UI[lang].title_suffix;
+  applyUI();
+  renderHero();
+  renderChip();
+  renderAbout();
+  renderSkills();
+  renderProjects();
+  renderServices();
+  renderContact();
+  watchReveals();
+  requestAnimationFrame(moveIndicator);
+}
+
+/* تبديل اللغة: يخفت المحتوى ثم يظهر باللغة الجديدة */
+function switchLang(next) {
+  writeStored("site-lang", next);
+  const main = $("main");
+  if (motionOff() || !main.animate) { setLang(next); return; }
+  main.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(8px)" }], { duration: 150, easing: "ease-in", fill: "forwards" })
+    .finished.then(() => {
+      setLang(next);
+      main.getAnimations().forEach((a) => a.cancel());
+      main.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 320, easing: "cubic-bezier(.2,.8,.2,1)" });
+    })
+    .catch(() => setLang(next));
+}
+
+/* تبديل الثيم: دائرة تتسع من مكان الزر (إن دعم المتصفح View Transitions) */
+function setTheme(next, origin) {
+  const apply = () => {
+    root.setAttribute("data-theme", next);
+    writeStored("site-theme", next);
+  };
+  if (!document.startViewTransition || motionOff()) { apply(); return; }
+  const rect = origin.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+  const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+  const transition = document.startViewTransition(apply);
+  transition.ready.then(() => {
+    root.animate(
+      { clipPath: ["circle(0px at " + x + "px " + y + "px)", "circle(" + radius + "px at " + x + "px " + y + "px)"] },
+      { duration: 700, easing: "cubic-bezier(.4,0,.2,1)", pseudoElement: "::view-transition-new(root)" }
+    );
+  }).catch(() => {});
+}
+
+/* ---------- القائمة: خط متحرك تحت القسم الحالي ---------- */
+function moveIndicator() {
+  const nav = $(".nav");
+  const indicator = $("#nav-ind");
+  const active = nav.querySelector('a[aria-current="true"]');
+  if (!active || active.hidden) { indicator.style.opacity = "0"; return; }
+  indicator.style.opacity = "1";
+  indicator.style.width = active.offsetWidth + "px";
+  indicator.style.transform = "translateX(" + active.offsetLeft + "px)";
+}
+
+function watchSections() {
+  if (!("IntersectionObserver" in window)) return;
+  const links = Array.from(document.querySelectorAll(".nav a"));
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      links.forEach((a) => a.setAttribute("aria-current", a.getAttribute("href") === "#" + entry.target.id ? "true" : "false"));
+      moveIndicator();
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  document.querySelectorAll("main section[id]").forEach((section) => spy.observe(section));
+}
+
+/* ---------- التنقل بين الأقسام ---------- */
+function setupNavigation() {
+  document.addEventListener("click", (event) => {
+    const a = event.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute("href").slice(1);
+    if (!id) return;
+    event.preventDefault();
+    const behavior = motionOff() ? "auto" : "smooth";
+    if (id === "top") { window.scrollTo({ top: 0, behavior }); return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior, block: "start" });
+    if (!motionOff()) {                                  // وميض خفيف في عنوان القسم عند الوصول
+      target.classList.remove("hit");
+      void target.offsetWidth;
+      target.classList.add("hit");
+      setTimeout(() => target.classList.remove("hit"), 1100);
+    }
+  });
+}
+
+/* ---------- شريط التقدم وظل الهيدر ---------- */
+function setupScrollUI() {
+  const bar = $("#progress");
+  const header = $("#site-header");
+  let waiting = false;
+  function update() {
+    waiting = false;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
+    header.classList.toggle("scrolled", window.scrollY > 8);
+  }
+  window.addEventListener("scroll", () => {
+    if (waiting) return;
+    waiting = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
+  window.addEventListener("resize", () => { moveIndicator(); update(); });
+  update();
+}
+
+/* ---------- موجة عند الضغط على أي زر ---------- */
+function setupRipple() {
+  document.addEventListener("pointerdown", (event) => {
+    if (motionOff()) return;
+    const target = event.target.closest(".btn, .icon-btn, .mini");
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 2.2;
+    const wave = el("span", "ripple");
+    wave.style.width = wave.style.height = size + "px";
+    wave.style.left = event.clientX - rect.left - size / 2 + "px";
+    wave.style.top = event.clientY - rect.top - size / 2 + "px";
+    target.append(wave);
+    wave.addEventListener("animationend", () => wave.remove());
+  }, { passive: true });
+}
+
+/* ---------- ميلان الشريحة مع حركة الماوس + توهج البطاقات ---------- */
+function setupPointerEffects() {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+  const hero = $(".hero");
+  const chip = $("#chip");
+  hero.addEventListener("pointermove", (event) => {
+    if (motionOff()) return;
+    const rect = chip.getBoundingClientRect();
+    const dx = (event.clientX - (rect.left + rect.width / 2)) / (window.innerWidth / 2);
+    const dy = (event.clientY - (rect.top + rect.height / 2)) / (window.innerHeight / 2);
+    chip.style.setProperty("--ry", (Math.max(-1, Math.min(1, dx)) * 7).toFixed(2) + "deg");
+    chip.style.setProperty("--rx", (-Math.max(-1, Math.min(1, dy)) * 5).toFixed(2) + "deg");
+  });
+  hero.addEventListener("pointerleave", () => {
+    chip.style.setProperty("--rx", "0deg");
+    chip.style.setProperty("--ry", "0deg");
+  });
+
+  ["#cards", "#svc"].forEach((selector) => {
+    $(selector).addEventListener("pointermove", (event) => {
+      const card = event.target.closest(".card, .svc-item");
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--mx", event.clientX - rect.left + "px");
+      card.style.setProperty("--my", event.clientY - rect.top + "px");
+    });
+  });
+}
+
+/* ---------- الواجهة: مسارات دائرة مطبوعة عليها نبضات متحركة ---------- */
+function createTraces() {
+  const canvas = $("#traces");
+  const ctx = canvas.getContext("2d");
+  const host = canvas.parentElement;
+  const GRID = 28;
+  const DIR = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
+  const colors = { trace: "#888888", pulse: "#5533cc", paper: "#ffffff" };
+  const probe = el("i");                              // عنصر خفي نستخدمه لقراءة لون المتغيّر كما يراه المتصفح
+  probe.style.cssText = "position:absolute;width:0;height:0;visibility:hidden";
+  document.body.append(probe);
+  let width = 0, height = 0, dpr = 1, traces = [], frame = 0, inView = true;
+
+  function mulberry32(seed) {                         // مولّد أرقام عشوائية ثابت: نفس الشكل في كل زيارة
+    let a = seed;
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let x = Math.imul(a ^ (a >>> 15), 1 | a);
+      x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+      return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function resolveColor(name, fallback) {
+    probe.style.color = "";
+    probe.style.color = "var(" + name + ")";
+    return getComputedStyle(probe).color || fallback;
+  }
+  function readColors() {
+    colors.trace = resolveColor("--trace", colors.trace);
+    colors.pulse = resolveColor("--pulse", colors.pulse);
+    colors.paper = resolveColor("--paper", colors.paper);
+  }
+
+  function build() {
+    const random = mulberry32(11);
+    const count = Math.max(7, Math.round(width / 64));
+    traces = [];
+    for (let i = 0; i < count; i += 1) {
+      let x = Math.round((random() * width) / GRID) * GRID;
+      let y = Math.round((random() * height) / GRID) * GRID;
+      let d = Math.floor(random() * 8);
+      const points = [[x, y]];
+      const segments = 3 + Math.floor(random() * 4);
+      for (let s = 0; s < segments; s += 1) {
+        const steps = 1 + Math.floor(random() * 4);
+        x += DIR[d][0] * steps * GRID;
+        y += DIR[d][1] * steps * GRID;
+        points.push([x, y]);
+        d = (d + (random() < 0.5 ? -1 : 1) + 8) % 8;   // انعطاف 45 درجة فقط
+      }
+      const cumulative = [0];
+      for (let j = 1; j < points.length; j += 1) {
+        cumulative.push(cumulative[j - 1] + Math.hypot(points[j][0] - points[j - 1][0], points[j][1] - points[j - 1][1]));
+      }
+      traces.push({ points, cumulative, length: cumulative[cumulative.length - 1], speed: 30 + random() * 50, offset: random() * 1000 });
+    }
+  }
+
+  function pointAt(trace, distance) {
+    let j = 1;
+    while (j < trace.cumulative.length - 1 && trace.cumulative[j] < distance) j += 1;
+    const segment = trace.cumulative[j] - trace.cumulative[j - 1] || 1;
+    const f = (distance - trace.cumulative[j - 1]) / segment;
+    return [
+      trace.points[j - 1][0] + (trace.points[j][0] - trace.points[j - 1][0]) * f,
+      trace.points[j - 1][1] + (trace.points[j][1] - trace.points[j - 1][1]) * f
+    ];
+  }
+
+  function draw(timestamp) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = colors.trace;
+    traces.forEach((trace) => {
+      ctx.beginPath();
+      trace.points.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
+      ctx.stroke();
+      [trace.points[0], trace.points[trace.points.length - 1]].forEach((p) => {   // نقطتا اللحام في الطرفين
+        ctx.beginPath();
+        ctx.arc(p[0], p[1], 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = colors.paper;
+        ctx.fill();
+        ctx.stroke();
+      });
+    });
+    if (motionOff()) return;                          // من أوقف الحركة يرى الشكل ثابتًا
+    const seconds = timestamp / 1000;
+    ctx.fillStyle = colors.pulse;
+    traces.forEach((trace) => {
+      const head = (seconds * trace.speed + trace.offset) % (trace.length + 160);
+      for (let k = 0; k < 7; k += 1) {
+        const distance = head - k * 5;
+        if (distance < 0 || distance > trace.length) continue;
+        const p = pointAt(trace, distance);
+        ctx.globalAlpha = 1 - k / 7;
+        ctx.beginPath();
+        ctx.arc(p[0], p[1], 3.2 - k * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  function loop(timestamp) { draw(timestamp); frame = requestAnimationFrame(loop); }
+  function start() {
+    if (frame || motionOff() || !inView || document.hidden) return;
+    frame = requestAnimationFrame(loop);
+  }
+  function stop() { if (frame) { cancelAnimationFrame(frame); frame = 0; } }
+
+  function resize() {
+    const rect = host.getBoundingClientRect();
+    width = Math.max(1, Math.round(rect.width));
+    height = Math.max(1, Math.round(rect.height));
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    build();
+    draw(performance.now());
+  }
+
+  function recolor() { readColors(); draw(performance.now()); }
+
+  readColors();
+  resize();
+  if ("ResizeObserver" in window) new ResizeObserver(resize).observe(host);
+  else window.addEventListener("resize", resize);
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      if (inView) start(); else stop();
+    }).observe(host);
+  }
+  document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else start(); });
+  if (reduceMotion.addEventListener) {
+    reduceMotion.addEventListener("change", () => { stop(); draw(performance.now()); start(); });
+  }
+  start();
+  return { recolor };
+}
+
+/* ---------- التشغيل بعد تحميل الصفحة ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  setLang(lang);
+  applySections();
+  initReveal();
+  watchSections();
+  setupNavigation();
+  setupScrollUI();
+  setupRipple();
+  setupPointerEffects();
+  heroTraces = createTraces();
+
+  let turn = 0;
+  $("#theme-btn").addEventListener("click", (event) => {
+    turn += 180;
+    event.currentTarget.style.setProperty("--rot", turn + "deg");
+    setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark", event.currentTarget);
+  });
+
+  $("#lang-btn").addEventListener("click", () => switchLang(lang === "ar" ? "en" : "ar"));
+
+  // أعد تلوين مسارات الواجهة كلما تغير الثيم
+  new MutationObserver(() => heroTraces.recolor()).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // إن لم يختر الزائر ثيمًا بنفسه فاتبع ثيم جهازه عند تغيّره
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  if (systemTheme.addEventListener) {
+    systemTheme.addEventListener("change", (event) => {
+      if (!readStored("site-theme")) root.setAttribute("data-theme", event.matches ? "dark" : "light");
+    });
+  }
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveIndicator);
+  heroTraces.recolor();
+});
+
+</script>
+
+</body></html>
